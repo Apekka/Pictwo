@@ -59,7 +59,11 @@ body{
 }
 
 .game-screen .tchat .message-list li.special{
-
+	width: calc(100% - 10px);
+	padding: 5px;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 1em;
 }
 
 .game-screen .tchat .message-input{

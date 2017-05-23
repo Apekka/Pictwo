@@ -42,13 +42,17 @@
         var socket = io();
 
         $('form').submit(function(){
-          socket.emit('chat message', $('#message-input').val());
+          socket.emit('message', $('#message-input').val());
           $('#message-input').val('');
           return false;
         });
 
-        socket.on('chat message', function(msg, user){
+        socket.on('message', function(msg, user){
           $('#message-list').append('<li><span class="username" style="color:'+user.color+'">'+user.name+':</span> '+msg+'</li>');
+        });
+
+        socket.on('special-message', function(msg){
+          $('#message-list').append('<li class="special" style="background-color:'+msg.color+'">'+msg.content+'</li>');
         });
 
       });
