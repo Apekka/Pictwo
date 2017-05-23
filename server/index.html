@@ -6,6 +6,10 @@
   </head>
   <body>
 
+    <div class="main-content">
+        <img src="http://puu.sh/vZeXN/c299949583.jpg">
+      <div class="menu-screen">
+        
     <div id="main-content" class="main-content">
 
       <div id="pseudo-screen" class="pseudo-screen">
@@ -34,12 +38,7 @@
       <div class="endgame-screen hidden">
         
       </div>
-
     </div>
-
-
-    
-
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -82,7 +81,9 @@
         });
 
         socket.on('message', function(msg, user){
-          $('#message-list').append('<li><span class="username" style="color:'+user.color+'">'+user.name+':</span> '+msg+'</li>');
+          console.log(user);
+          console.log(msg);
+          $('#message-list').append('<li><span class="username" style="color:' + user.color + '">' + user.name + ':</span> ' + msg +'</li>');
         });
 
         socket.on('special-message', function(msg){

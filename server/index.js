@@ -9,17 +9,14 @@ app.use(express.static(__dirname));
 io.origins('*:*');
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/nick.html');
-});
-
-app.get('/chat', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function(socket){
   var color = '#0b5de2';
-  socket.on('setNick', function(nick){
-      io.sockets.emit('setNick', {id: socket.id, nick: nick, color: color });
+  var user = {id: socket.id, name: 'Dokunu', color: color}
+  socket.on('new-player', function(nick){
+      io.sockets.emit('', {id: socket.id, nick: nick, color: color });
       for (var i = 0; i < users.length; i++) {
         if(users[i].id == socket.id) {
           users[i].nick = nick;
@@ -27,15 +24,16 @@ io.on('connection', function(socket){
         }
       }
       users.push({ id: socket.id, nick: nick, color: color });
+      io.sockets.emit('game-joined');
       console.log(nick + ' connected');
       console.log(users);
   })
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('chat message', function(msg){
+  socket.on('message', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    io.sockets.emit('message', msg, user);
   });
 });
 
