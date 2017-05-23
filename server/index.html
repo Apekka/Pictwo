@@ -54,7 +54,10 @@
         socket.on('special-message', function(msg){
           $('#message-list').append('<li class="special" style="background-color:'+msg.color+'">'+msg.content+'</li>');
         });
-
+        
+        socket.on('userConnected', function(myNick){
+          $('#message-list').append('<li>' + myNick + ' s\'est connecté ! </li>');
+        })
       });
     </script>
 
