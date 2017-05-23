@@ -13,6 +13,40 @@ body{
 	justify-content: center;
 }
 
+.hidden{
+	display: none;
+}
+
+.pseudo-screen{
+	text-align: center;
+}
+
+.pseudo-screen .logo{
+	width: 400px;
+	display: block;
+	margin-bottom: 25px;
+}
+
+.pseudo-screen .pseudo-input{
+	display: inline-block;
+	height: 25px;
+	width: 250px;
+	border: 2px solid black;
+}
+
+.pseudo-screen button{
+	display: inline-block;
+	background-color: black;
+	height: 25px;
+	width: 75px;
+	border: none;
+	color: #fff;
+	margin-left: 5px;
+}
+
+
+/*game screen*/
+
 .game-screen{
 	text-align: center;	
 }
