@@ -16,5 +16,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "\"# Pictwo\"",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoKuNu/Pictwo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DoKuNu/Pictwo/issues"
+  },
+  "homepage": "https://github.com/DoKuNu/Pictwo#readme"
 }
