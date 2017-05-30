@@ -30,7 +30,7 @@ io.on('connection', function(socket){
 
   function startGame() {
     fs.readFile(__dirname + '/dictionnary.txt', function (err, data) {
-        
+        console.log('ca passe dedans');
       
         dictionnary = data.toString('utf-8').split('\r\n');
         
@@ -40,33 +40,32 @@ io.on('connection', function(socket){
         words[words.length] = randomnumber;
       }
       for (var i = 0; i < words.length; i++) {
-        console.log('ca passe dedans');
+        
         rounds[i] = {};
         rounds[i].word = dictionnary[words[i]];
-        console.log(rounds);
       }
     })
     
-  // startRound();
+  startRound();
   }; 
 
-  // function startRound() {
-  //   //il va falloir envoyer le mot en cours
-  //   //envoie a chacun le role qu'il a
+  function startRound() {
+    //il va falloir envoyer le mot en cours
+    //envoie a chacun le role qu'il a
     
-  //   if (roundIndex == 0) {
-  //     console.log(rounds);
-  //     rounds[roundIndex].drawer = users[0];
-  //   } else {
-  //     rounds[roundIndex].drawer = rounds[roundIndex-1].winner;
-  //   }
+    if (roundIndex == 0) {
+      console.log(rounds);
+      rounds[roundIndex].drawer = users[0];
+    } else {
+      rounds[roundIndex].drawer = rounds[roundIndex-1].winner;
+    }
 
-  //   io.sockets.emit('new-drawer', rounds[roundIndex].drawer);
-  //   console.log(rounds[roundIndex].drawer);
-  //   io.sockets.emit('start-round', rounds[roundIndex].word);
-  //   console.log(rounds[roundIndex].word);
+    io.sockets.emit('new-drawer', rounds[roundIndex].drawer);
+    console.log(rounds[roundIndex].drawer);
+    io.sockets.emit('start-round', rounds[roundIndex].word);
+    console.log(rounds[roundIndex].word);
     
-  // }
+  }
    
 
   socket.on('new-player', function(name){
