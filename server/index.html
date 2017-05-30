@@ -21,9 +21,10 @@
       <!-- <div class="players-screen"></div> -->
 
       <div id="game-screen" class="game-screen hidden">
-        <div class="drawer-div">
+        <img id="eraser" class="eraser" src="eraser.png"></img>
+        <div id="drawer-div" class="drawer-div">
           <canvas height="500" width="500" id="canvas"></canvas>
-          <span class="state">Lorem ipsum dolor sit</span>
+          <span class="state"></span>
         </div>
 
         <div class="tchat">
@@ -40,64 +41,7 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      $(function () {
-        var socket = io();
-
-
-        //pseudo
-        $('#send-pseudo').submit(function(){
-          socket.emit('new-player', $('#pseudo-input').val());
-          $('#pseudo-input').val('');
-          return false;
-        });
-
-        // socket.on('join-room', function(){
-        // });
-
-        //receive only by the new user after sending pseud
-        socket.on('game-joined', function(status){
-          // hide and show right div
-          $('#pseudo-screen').addClass('hidden');
-          $('#game-screen').removeClass('hidden')
-
-          if(status == 'DRAWER'){
-            $('#main-content').addClass('drawer');
-            $('#game-screen input, #game-screen button').prop('disabled', true);
-          } else {
-            $('#main-content').removeClass('drawer');
-            $('#game-screen input, #game-screen button').prop('disabled', false);
-          }
-        });
-
-
-
-        //messages
-        $('#send-message').submit(function(){
-          socket.emit('message', $('#message-input').val());
-          $('#message-input').val('');
-          return false;
-        });
-
-        socket.on('message', function(msg, user){
-          console.log(user);
-          console.log(msg);
-          $('#message-list').append('<li><span class="username" style="color:' + user.color + '">' + user.name + ':</span> ' + msg +'</li>');
-        });
-
-        socket.on('special-message', function(msg){
-          $('#message-list').append('<li class="special" style="background-color:'+msg.color+'">'+msg.content+'</li>');
-        });
-
-
-
-
-
-        socket.on('userConnected', function(myNick){
-          $('#message-list').append('<li>' + myNick + ' s\'est connecté ! </li>');
-        })
-      });
-    </script>
+    <script src="main.js"></script>
 
   </body>
 </html>

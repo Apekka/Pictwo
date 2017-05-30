@@ -61,8 +61,21 @@ body{
 .game-screen .drawer-div canvas{
 	background-color: #fff;
 	display: block;
+	cursor: default;
+}
+
+.game-screen .eraser{
+	display: none;
+}
+
+#main-content.drawer .eraser{
+	display: inline-block;
+}
+
+#main-content.drawer .game-screen .drawer-div canvas{
 	cursor: crosshair;
 }
+
 
 .game-screen .tchat{
 	display: inline-block;
@@ -77,6 +90,7 @@ body{
 .game-screen .tchat .message-list{
 	height: calc(500px - 30px);
 	display: block;
+	overflow-y: scroll;
 }
 
 .game-screen .tchat .message-list li{
@@ -85,6 +99,7 @@ body{
 	text-align: left;
 	font-size: 0.8em;
 	width: 100%;
+	word-wrap: break-word;
 }
 
 .game-screen .tchat .message-list li .username{
@@ -93,7 +108,7 @@ body{
 }
 
 .game-screen .tchat .message-list li.special{
-	width: calc(100% - 10px);
+	width: calc(100%);
 	padding: 5px;
 	color: #FFF;
 	font-weight: bold;
@@ -119,6 +134,9 @@ body{
 .game-screen .drawer-div .state{
 	display: block;
 	margin: 0 auto;
+	padding: 5px;
+	font-weight: bold;
+	color: white;
 }
 
 .game-screen{
@@ -131,4 +149,17 @@ body{
 
 .game-screen{
 	
+}
+
+.eraser{
+	display: inline-block;
+    vertical-align: top;
+    width: 40px;
+    margin-right: 5px;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.eraser.selected{
+	background-color: #dadada;
 }
