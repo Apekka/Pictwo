@@ -20,6 +20,7 @@ $(function () {
   var lastpoint = null;
   var painting = false;
   var timeleft;
+  var drawingTimer;
 
 
 
