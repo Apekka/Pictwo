@@ -126,6 +126,10 @@ $(function () {
   socket.on('start-round', function(word, atimeleft){
     timeleft = atimeleft;
     drawingTimer = setInterval(timerTick, 1000);
+    //clear canvas, set new canvas because of jquery selector
+     var myCanvas = document.getElementById("canvas");
+     var ctx = myCanvas.getContext('2d');
+     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
     if(user.status == 'DRAWER'){
         $('.drawer-div .state').text("Dessinez un/une \""+word+"\" !");
     } else {
@@ -135,8 +139,8 @@ $(function () {
 
   function timerTick() {
 		if(timeleft > 0) {
-			timeleft--;
-			timerClock.html('Temps restant : ' + timeleft + ' seconde(s)');
+			timeleft = timeleft -1000;
+			timerClock.html('Temps restant : ' + timeleft/1000 + ' seconde(s)');
 		} else {
 			clearInterval(drawingTimer);
 			timerClock.html('');
