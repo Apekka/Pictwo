@@ -11,6 +11,7 @@ $(function () {
 
   /* Drawing on Paint App */
   var canvas = $('#canvas');
+  var timerClock = $('#timerclock');
   ctx = canvas[0].getContext('2d');
   ctx.lineWidth = 5;
   ctx.lineJoin = 'round';
@@ -18,6 +19,8 @@ $(function () {
   ctx.strokeStyle = 'blue';
   var lastpoint = null;
   var painting = false;
+  var timeleft;
+
 
 
   //taken from github, little modif added by me
@@ -86,9 +89,6 @@ $(function () {
   });
 
 
-
-
-
   //pseudo
   $('#send-pseudo').submit(function(){
     socket.emit('new-player', $('#pseudo-input').val());
@@ -123,13 +123,26 @@ $(function () {
     }
   });
 
-  socket.on('start-round', function(word){
+  socket.on('start-round', function(word, atimeleft){
+    timeleft = atimeleft;
+    drawingTimer = setInterval(timerTick, 1000);
     if(user.status == 'DRAWER'){
         $('.drawer-div .state').text("Dessinez un/une \""+word+"\" !");
     } else {
         $('.drawer-div .state').text("Trouvez ce qui est dessiné !");
     }
   });
+
+  function timerTick() {
+		if(timeleft > 0) {
+			timeleft--;
+			timerClock.html('Temps restant : ' + timeleft + ' seconde(s)');
+		} else {
+			clearInterval(drawingTimer);
+			timerClock.html('');
+      socket.emit('timeout');
+		}
+	}
 
 
   //messages
