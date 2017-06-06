@@ -124,6 +124,12 @@ $(function () {
   });
 
   socket.on('start-round', function(word){
+    //clear canvas, set new canvas because of jquery selector
+     var myCanvas = document.getElementById("canvas");
+     var ctx = myCanvas.getContext('2d');
+     ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+
+
     if(user.status == 'DRAWER'){
         $('.drawer-div .state').text("Dessinez un/une \""+word+"\" !");
     } else {

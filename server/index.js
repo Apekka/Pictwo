@@ -51,13 +51,13 @@ io.on('connection', function(socket){
     } else {
       currentDrawer = rounds[roundIndex-1].winner;
     }
+    console.log('le round n°'+roundIndex);
 
     currentDrawer.status = 'DRAWER';
     rounds[roundIndex].drawer = currentDrawer;
 
     io.sockets.emit('new-drawer', rounds[roundIndex].drawer); //send who's the drawer for this round
     io.sockets.emit('start-round', rounds[roundIndex].word); //send the word to draw : round can begin
-    
   }
    
 
@@ -107,10 +107,25 @@ io.on('connection', function(socket){
 
       var scores = '<br/>----- Classement -----';
       for(var i=0; i<users.length; i++)
-        scores+='<br/>'+i+'.'+user.name+' : '+user.score+' pts';
+        scores+='<br/>'+(i+1)+'.'+users[i].name+' : '+users[i].score+' pts';
       io.sockets.emit('special-message', {color : 'orange', content: user.name + ' a trouvé le mot "'+rounds[roundIndex].word+'" !'+scores});
+    
+
+      //start new round
+      if(roundIndex<NB_TOTAL_ROUNDS-1){
+        rounds[roundIndex].winner = user; //set the winner
+        roundIndex++;
+        startRound();
+
+      } else {//end of game
+        endGame();
+      }
     }
   });
+
+  function endGame(){
+    io.sockets.emit('special-message', {color : 'purple', content : '****FIN DU JEU****'});
+  }
 
 });
 
