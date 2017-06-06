@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Pictwo</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+
+    <div class="main-content">
+      <div class="menu-screen">
+        
+    <div id="main-content" class="main-content">
+
+      <div id="pseudo-screen" class="pseudo-screen">
+        <img src="logo.jpg" class="logo">
+        <form id="send-pseudo">
+            <input id="pseudo-input" class="pseudo-input" autocomplete="off"/><button>Rejoindre</button>
+          </form>
+      </div>
+        
+      <!-- <div class="players-screen"></div> -->
+
+      <div id="game-screen" class="game-screen hidden">
+        <div id="timerclock" class="timerclock"></div>
+        <img id="eraser" class="eraser" src="eraser.png"></img>
+        <div id="drawer-div" class="drawer-div">
+          <canvas height="500" width="500" id="canvas"></canvas>
+          <span class="state"></span>
+        </div>
+
+        <div class="tchat">
+          <ul id="message-list" class="message-list"></ul>
+          <form id="send-message">
+            <input id="message-input" class="message-input" autocomplete="off"/><button>Envoyer</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="endgame-screen hidden">
+        
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="main.js"></script>
+
+  </body>
+</html>
