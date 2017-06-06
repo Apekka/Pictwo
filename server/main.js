@@ -126,7 +126,9 @@ $(function () {
 
   socket.on('start-round', function(word, atimeleft){
     timeleft = atimeleft;
+    clearInterval(drawingTimer);
     drawingTimer = setInterval(timerTick, 1000);
+    console.log('set interval');
     //clear canvas, set new canvas because of jquery selector
      var myCanvas = document.getElementById("canvas");
      var ctx = myCanvas.getContext('2d');
@@ -167,6 +169,10 @@ $(function () {
   socket.on('special-message', function(msg){
     $('#message-list').append('<li class="special" style="background-color:'+msg.color+'">'+msg.content+'</li>');
   });
+
+  function scrollDownChat() {
+    // $('#tchat').scrollTop($('#message-list')[0].scrollHeight); marche pas
+  };
 
 
   socket.on('userConnected', function(myNick){

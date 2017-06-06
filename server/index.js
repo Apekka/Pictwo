@@ -10,7 +10,7 @@ var words = [];
 var rounds = []; //word, drawer, winner
 var roundIndex = 0;
 var NB_TOTAL_ROUNDS = 10;
-var TIMELEFT = 120000;
+var TIMELEFT = 50000;
 var timeoutInterval;
 
 app.use(express.static(__dirname));
@@ -63,6 +63,7 @@ io.on('connection', function(socket){
     io.sockets.emit('start-round', rounds[roundIndex].word, TIMELEFT); //send the word to draw : round can begin
 
     timeoutInterval = setTimeout(timeOut, TIMELEFT);
+    console.log('new interval');
   }
 
   function timeOut(){
@@ -104,6 +105,7 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     for (var i = 0; i < users.length; i++) {
       if(users[i].id == socket.id) {
+        if(users[i].status == 'DRAWER') currentDrawer = null;
         users.splice(i, 1);
         break;
       }
@@ -120,7 +122,7 @@ io.on('connection', function(socket){
     if(rounds[roundIndex].word == msg){
       rounds[roundIndex].winner = user.id;
       users[users.indexOf(user)].score++;
-      users[users.indexOf(currentDrawer)].score++;
+      if(currentDrawer) users[users.indexOf(currentDrawer)].score++; //maybe there is not a drawer anymore
 
       var scores = '<br/>----- Classement -----';
       for(var i=0; i<users.length; i++)
@@ -128,6 +130,7 @@ io.on('connection', function(socket){
       io.sockets.emit('special-message', {color : 'orange', content: user.name + ' a trouvé le mot "'+rounds[roundIndex].word+'" !'+scores});
       //start new round
       if(roundIndex<NB_TOTAL_ROUNDS-1){
+        clearTimeout(timeoutInterval);
         rounds[roundIndex].winner = user; //set the winner
         roundIndex++;
         startRound();
@@ -139,6 +142,7 @@ io.on('connection', function(socket){
   });
 
   function endGame(){
+    clearTimeout(timeoutInterval);
     io.sockets.emit('special-message', {color : 'purple', content : '****FIN DU JEU****'});
   }
 
