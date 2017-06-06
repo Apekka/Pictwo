@@ -140,7 +140,7 @@ $(function () {
 
   function timerTick() {
 		if(timeleft > 0) {
-			timeleft = timeleft -1000;
+			timeleft = timeleft-1000;
 			timerClock.html('Temps restant : ' + timeleft/1000 + ' seconde(s)');
 		} else {
 			clearInterval(drawingTimer);

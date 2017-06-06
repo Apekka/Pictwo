@@ -10,7 +10,7 @@ var words = [];
 var rounds = []; //word, drawer, winner
 var roundIndex = 0;
 var NB_TOTAL_ROUNDS = 10;
-var TIMELEFT = 10000;
+var TIMELEFT = 120000;
 var timeoutInterval;
 
 app.use(express.static(__dirname));
