@@ -10,7 +10,7 @@ var words = [];
 var rounds = []; //word, drawer, winner
 var roundIndex = 0;
 var NB_TOTAL_ROUNDS = 10;
-var TIMELEFT = 50000;
+var TIMELEFT = 10000;
 var timeoutInterval;
 
 app.use(express.static(__dirname));
@@ -68,7 +68,7 @@ io.on('connection', function(socket){
 
   function timeOut(){
     clearTimeout(timeoutInterval);
-    io.sockets.emit('special-message', {color : 'red', content: rounds[roundIndex].word + ' était la bonne réponse !'});    
+    io.sockets.emit('special-message', {color : 'red', content: rounds[roundIndex].word + ' était la bonne réponse !'+ getClassement()});    
     if (roundIndex < NB_TOTAL_ROUNDS-1) {
       roundIndex++;
       startRound();
@@ -124,10 +124,7 @@ io.on('connection', function(socket){
       users[users.indexOf(user)].score++;
       if(currentDrawer) users[users.indexOf(currentDrawer)].score++; //maybe there is not a drawer anymore
 
-      var scores = '<br/>----- Classement -----';
-      for(var i=0; i<users.length; i++)
-        scores+='<br/>'+(i+1)+'.'+users[i].name+' : '+users[i].score+' pts';
-      io.sockets.emit('special-message', {color : 'orange', content: user.name + ' a trouvé le mot "'+rounds[roundIndex].word+'" !'+scores});
+      io.sockets.emit('special-message', {color : 'orange', content: user.name + ' a trouvé le mot "'+rounds[roundIndex].word+'" !'+ getClassement()});
       //start new round
       if(roundIndex<NB_TOTAL_ROUNDS-1){
         clearTimeout(timeoutInterval);
@@ -144,6 +141,16 @@ io.on('connection', function(socket){
   function endGame(){
     clearTimeout(timeoutInterval);
     io.sockets.emit('special-message', {color : 'purple', content : '****FIN DU JEU****'});
+  }
+
+  function getClassement(){
+    var scores = '<br/>----- Classement -----';
+    for(var i=0; i<users.length; i++){
+      // scores+='<br/>'+(i+1)+'.'+users[i].name+' : '+users[i].score+' pts'; trier les scores pour avoir 1,2,3 ...
+      scores+='<br/>'+users[i].name+' : '+users[i].score+' pts';
+    }
+
+    return scores;
   }
 
 });

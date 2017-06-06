@@ -24,7 +24,6 @@ $(function () {
 
 
 
-  //taken from github, little modif added by me
   function draw(line) {
     ctx.beginPath();
     
@@ -74,7 +73,6 @@ $(function () {
   canvas.mouseup(function(e) {
     painting = false;
   });
-  //end taken from github
 
 
   $('#eraser').click(function(){
@@ -92,8 +90,11 @@ $(function () {
 
   //pseudo
   $('#send-pseudo').submit(function(){
-    socket.emit('new-player', $('#pseudo-input').val());
-    $('#pseudo-input').val('');
+    var value = $('#pseudo-input').val();
+    if(value.trim().length>0){
+      socket.emit('new-player', $('#pseudo-input').val());
+      $('#pseudo-input').val('');
+    }
     return false;
   });
 
@@ -181,7 +182,6 @@ $(function () {
 
 
   socket.on('draw', function(line) {
-    //taken from github
     if(user.status == 'PLAYER' && line) {
         ctx.strokeStyle = line.color;
         ctx.lineWidth = line.width;
