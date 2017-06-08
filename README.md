@@ -28,6 +28,6 @@ Choses à corriger/ajouter :
 - Gérer les pseudos uniques
 - Avoir un classement ordonné en fonction du score
 - Vérifier s'il reste plus d'un joueur de connecté 
-- Améliorer le canvas pour pouvoir faire des points (le movemouse n'est pas appelé, donc rien n'est envoyé)
+- Améliorer le canvas pour pouvoir faire des points (le mousemove n'est pas appelé, donc rien n'est envoyé)
 
 --- Par BAYART Timothée & PERY-KASZA Antoine ---
