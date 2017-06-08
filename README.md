@@ -24,7 +24,7 @@ Choses à corriger/ajouter :
 - Gérer les bugs côté client
 - Gérer plusieurs rooms de jeu
 - Scroller quand un nouveau message arrive
-- Pouvoir relancer une partie à la fin sans relancer le serveur
+- Pouvoir relancer une partie à la fin sans recharger la page, avec une fin de partie
 - Gérer les pseudos uniques
 - Avoir un classement ordonné en fonction du score
 - Vérifier s'il reste plus d'un joueur de connecté 
